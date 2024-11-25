@@ -23,7 +23,7 @@ const BackgroundChanger = () => {
     }, [backgrounds.length]);
 
     return (
-        <div className={`h-[50rem] w-full ${backgrounds[currentBackground]} bg-cover transition-all duration-[1500ms] ease-in-out`}>
+        <div className={`h-[50rem] w-full ${backgrounds[currentBackground]} bg-cover transition-all duration-[1500ms] ease-in-out`}>  
             <div className="gradiantBlack w-full h-full bg-gradient-to-r from-black via-transparent to-transparent">
                 <div className="nav w-full px-[4.4rem] py-4 text-white bg-gradient-to-b from-black ">
                     <div className="navContent w-full flex justify-between items-center">
