@@ -11,6 +11,12 @@ module.exports = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        "lato": ['Lato', 'sans-serif'],
+        "faculty": ['Faculty Glyphic', 'sans-serif'],
+        "anton": ['Anton', 'sans-serif'],
+        "kanit": ["Kanit", "sans-serif"],
+      },
     },
   },
   plugins: [],
