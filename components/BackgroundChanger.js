@@ -24,7 +24,9 @@ const BackgroundChanger = () => {
 
     return (
         <div className={`h-[50rem] w-full ${backgrounds[currentBackground]} bg-cover transition-all duration-[1500ms] ease-in-out`}>  
+            {/* Backgroung gradient Black shade , so that text can be seen */}
             <div className="gradiantBlack w-full h-full bg-gradient-to-r from-black via-transparent to-transparent">
+                {/* Navbar */}
                 <div className="nav w-full px-[4.4rem] py-4 text-white bg-gradient-to-b from-black ">
                     <div className="navContent w-full flex justify-between items-center">
 
@@ -51,6 +53,8 @@ const BackgroundChanger = () => {
                     </div>
                     <div className="navEmpty h-20 "></div>
                 </div>
+
+                {/* Crowdfunding heading Section */}
                 <div className='crowdfunding h-[75%] text-white w-[55%] flex flex-col gap-7 justify-center px-[4.4rem]'>
                     <div className=''>
                         <h1 className=" text-6xl font-bold leading-tight ">
