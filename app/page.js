@@ -37,7 +37,7 @@ export default function Home() {
         </div>
 
         {/* Crowdfunding heading Section */}
-        <div className='crowdfunding h-[75%] text-white w-[55%] flex flex-col gap-7 justify-center px-[4.4rem]'>
+        <div className='crowdfunding h-[75%] text-white w-[57%] flex flex-col gap-7 justify-center px-[4.4rem]'>
           <div className=''>
             <h1 className=" text-6xl font-bold leading-tight ">
               Crowdfunding Platform for Creators
