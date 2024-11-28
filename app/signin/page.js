@@ -1,5 +1,8 @@
+'use client'  
 import React from 'react'
 import Navbar from '@/components/Navbar'
+import { useSession, signIn, signOut } from "next-auth/react"
+
 
 const SignIN = () => {
     return (
