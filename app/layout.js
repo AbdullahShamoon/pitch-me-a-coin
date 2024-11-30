@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import SessionWrapper from "@/components/SessionWrapper";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <SessionWrapper>
         {children}
+        <Footer />
         </SessionWrapper>
         </body>
     </html>

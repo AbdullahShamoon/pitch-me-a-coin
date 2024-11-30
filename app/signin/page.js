@@ -11,18 +11,12 @@ const SignIN = () => {
         // const router = useRouter()
         // router.push('/dashboard')
         useRouter().push('/dashboard')
-        // return (
-        //     <>
-                // Signed in as {session.user.name} <br />
-                // Email : {session.user.email} <br />
-                // Image :<img src={session.user.image} /> <br />
-                // <button onClick={() => signOut()}>Sign out</button>
-        //     </>
-        // )
+        
     }
 
     return (
         <div>
+            {/* Navbar */}
             <div className="nav w-full px-[4.4rem] py-4 text-white bg-gradient-to-b from-black to-[#ecf0f1] ">
                 <Navbar />
             </div>
