@@ -10,24 +10,111 @@ const page = () => {
     return (
         <div>
             {/* Navbar */}
-            <div className="nav w-full px-[4.4rem] py-4 text-white bg-gradient-to-b from-black to-[#ecf0f1] ">
+            <div className="nav w-full px-[4.4rem] py-4 text-white bg-[#1d181f] ">
                 <Navbar />
             </div>
-            <h1>Dashboard</h1>
-            {(!session)&& 
-                // const router = useRouter()
-                // router.push('/dashboard')
+            {/* {(!session)&& 
                 useRouter().push('/signin')
-
             }
-            {(session) &&
-                <>
-                    Signed in as {session.user.name} <br />
+            {(session) && */}
+            <>
+                <div className="dashboard h-[90vh]">
+                    <h1 className='font-halloween text-center text-3xl bg-[#1d181f] border-t text-white'>Welcome to your DASHBOARD</h1><br />
+
+
+
+
+                    <form class="px-8 pt-6 pb-8 mb-4 bg-white  rounded">
+                        <div class="mb-4 md:flex md:justify-between">
+                            <div class="mb-4 md:mr-2 md:mb-0">
+                                <label class="block mb-2 text-sm font-bold text-gray-700 " for="firstName">
+                                    First Name
+                                </label>
+                                <input
+                                    class="w-full px-3 py-2 text-sm leading-tight text-gray-700  border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                    id="firstName"
+                                    type="text"
+                                    placeholder="First Name"
+                                />
+                            </div>
+                            <div class="md:ml-2">
+                                <label class="block mb-2 text-sm font-bold text-gray-700 " for="lastName">
+                                    Last Name
+                                </label>
+                                <input
+                                    class="w-full px-3 py-2 text-sm leading-tight text-gray-700  border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                    id="lastName"
+                                    type="text"
+                                    placeholder="Last Name"
+                                />
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block mb-2 text-sm font-bold text-gray-700 " for="email">
+                                Email
+                            </label>
+                            <input
+                                class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700  border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                id="email"
+                                type="email"
+                                placeholder="Email"
+                            />
+                        </div>
+                        <div class="mb-4 md:flex md:justify-between">
+                            <div class="mb-4 md:mr-2 md:mb-0">
+                                <label class="block mb-2 text-sm font-bold text-gray-700 " for="password">
+                                    Password
+                                </label>
+                                <input
+                                    class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700  border border-red-500 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                    id="password"
+                                    type="password"
+                                    placeholder="******************"
+                                />
+                                <p class="text-xs italic text-red-500">Please choose a password.</p>
+                            </div>
+                            <div class="md:ml-2">
+                                <label class="block mb-2 text-sm font-bold text-gray-700 " for="c_password">
+                                    Confirm Password
+                                </label>
+                                <input
+                                    class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700  border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                    id="c_password"
+                                    type="password"
+                                    placeholder="******************"
+                                />
+                            </div>
+                        </div>
+                        <div class="mb-6 text-center">
+                            <button
+                                class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                                type="button"
+                            >
+                                Register Account
+                            </button>
+                        </div>
+                        <hr class="mb-6 border-t" />
+                        <div class="text-center">
+                            <a class="inline-block text-sm text-blue-500  align-baseline hover:text-blue-800"
+                                href="#">
+                                Forgot Password?
+                            </a>
+                        </div>
+                        <div class="text-center">
+                            <a class="inline-block text-sm text-blue-500  align-baseline hover:text-blue-800"
+                                href="./index.html">
+                                Already have an account? Login!
+                            </a>
+                        </div>
+                    </form>
+                </div>
+
+                {/* Signed in as {session.user.name} <br />
                     Email : {session.user.email} <br />
                     Image :<img src={session.user.image} /> <br />
-                    <button onClick={() => signOut()}>Sign out</button>
-                </>
-            }
+                    <button onClick={() => signOut()}>Sign out</button> */}
+            </>
+            {/* } */}
         </div>
     )
 }

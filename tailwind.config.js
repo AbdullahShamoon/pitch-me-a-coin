@@ -18,6 +18,7 @@ module.exports = {
         "anton": ['Anton', 'sans-serif'],
         "kanit": ["Kanit", "sans-serif"],
         "merriweather": ["Merriweather", "serif"],
+        "halloween": ["Rubik Wet Paint", "system-ui"],
       },
     },
   },
