@@ -115,6 +115,20 @@ const page = () => {
                                                 </div>
                                             </div>
                                             <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
+                                                <div className="w-full  mb-4 mt-6">
+                                                    <label htmlFor="" className="mb-2 dark:text-gray-300">Moblie Number</label>
+                                                    <input type="tel"
+                                                        className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
+                                                        placeholder="Moblie Number" />
+                                                </div>
+                                                <div className="w-full  mb-4 lg:mt-6">
+                                                    <label htmlFor="" className=" dark:text-gray-300">Languages</label>
+                                                    <input type="text"
+                                                        className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
+                                                        placeholder="Languages Known" />
+                                                </div>
+                                            </div>
+                                            <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
                                                 <div className="w-full  mb-4 mt-4">
                                                     <label htmlFor="" className="mb-2 dark:text-gray-300">Razorpay ID</label>
                                                     <input type="text"
@@ -130,8 +144,15 @@ const page = () => {
                                                         placeholder="Full Address" />
                                                 </div>
                                             </div>
-                                            <div className="w-full rounded-lg bg-blue-500 mt-4 text-white text-lg font-semibold">
+                                            {/* <div className="w-full rounded-lg bg-blue-500 mt-4 text-white text-lg font-semibold">
                                                 <button type="submit" className="w-full p-4">Save</button>
+                                            </div> */}
+                                            <div className="button w-full my-5 flex justify-center">
+                                                <a href="#_" class="relative w-[90%] px-6 py-3 font-bold text-white group text-center">
+                                                    <span class="absolute inset-0 w-full h-full transition duration-300 ease-out transform -translate-x-2 -translate-y-2 bg-blue-700 group-hover:translate-x-0 group-hover:translate-y-0"></span>
+                                                    <span class="absolute inset-0 w-full h-full border-4 border-white   "></span>
+                                                    <span class="relative ">Save</span>
+                                                </a>
                                             </div>
                                         </form>
                                     </div>
