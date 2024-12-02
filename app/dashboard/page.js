@@ -13,108 +13,142 @@ const page = () => {
             <div className="nav w-full px-[4.4rem] py-4 text-white bg-[#1d181f] ">
                 <Navbar />
             </div>
-            {/* {(!session)&& 
+            {(!session) &&
                 useRouter().push('/signin')
             }
-            {(session) && */}
-            <>
-                <div className="dashboard h-[90vh]">
-                    <h1 className='font-halloween text-center text-3xl bg-[#1d181f] border-t text-white'>Welcome to your DASHBOARD</h1><br />
+            {(session) &&
+                <>
+                    <div className="dashboard min-h-[100vh]">
+                        <h1 className='font-halloween text-center text-3xl bg-gray-900 pt-7 border-t border-black text-white'>Welcome to your <span className='text-yellow-500'>DASHBOARD</span></h1>
 
+                        <section className="py-10 my-auto dark:bg-gray-900">
+                            <div className="lg:w-[80%] md:w-[90%] xs:w-[96%] mx-auto flex gap-4">
+                                <div
+                                    className="lg:w-[88%] md:w-[80%] sm:w-[88%] xs:w-full mx-auto shadow-2xl p-4 rounded-xl h-fit self-center dark:bg-gray-800/40">
+                                    {/* <!--  --> */}
+                                    <div className="">
+                                        <h1
+                                            className="lg:text-3xl md:text-2xl sm:text-xl xs:text-xl font-serif font-extrabold mb-2 dark:text-white">
+                                            Profile
+                                        </h1>
+                                        <h2 className="text-grey text-sm mb-4 dark:text-gray-400">Create Profile</h2>
+                                        <form>
+                                            {/* <!-- Cover Image --> */}
+                                            <div
+                                                className="w-full rounded-sm bg-[url('/cover.jpg')] bg-cover bg-center bg-no-repeat items-center">
+                                                {/* <!-- Profile Image --> */}
+                                                <div
+                                                    className={`mx-auto flex justify-center w-[141px] h-[141px] bg-blue-300/20 rounded-full bg-[url('/profile.jpg')] bg-cover bg-center bg-no-repeat`}>
 
+                                                    <div className="bg-white/90 rounded-full w-6 h-6 text-center ml-28 mt-4">
 
+                                                        <input type="file" name="profile" id="upload_profile" hidden required />
 
-                    <form class="px-8 pt-6 pb-8 mb-4 bg-white  rounded">
-                        <div class="mb-4 md:flex md:justify-between">
-                            <div class="mb-4 md:mr-2 md:mb-0">
-                                <label class="block mb-2 text-sm font-bold text-gray-700 " for="firstName">
-                                    First Name
-                                </label>
-                                <input
-                                    class="w-full px-3 py-2 text-sm leading-tight text-gray-700  border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                    id="firstName"
-                                    type="text"
-                                    placeholder="First Name"
-                                />
+                                                        <label htmlFor="upload_profile">
+                                                            <svg data-slot="icon" className="w-6 h-5 text-blue-700" fill="none"
+                                                                strokeWidth="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                                                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                                <path strokeLinecap="round" strokeLinejoin="round"
+                                                                    d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z">
+                                                                </path>
+                                                                <path strokeLinecap="round" strokeLinejoin="round"
+                                                                    d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z">
+                                                                </path>
+                                                            </svg>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div className="flex justify-end">
+
+                                                    <input type="file" name="profile" id="upload_cover" hidden required />
+
+                                                    <div
+                                                        className="bg-white flex items-center gap-1 rounded-tl-md px-2 text-center font-semibold">
+                                                        <label htmlFor="upload_cover" className="inline-flex items-center gap-1 cursor-pointer">Cover
+
+                                                            <svg data-slot="icon" className="w-6 h-5 text-blue-700" fill="none" strokeWidth="1.5"
+                                                                stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                                                aria-hidden="true">
+                                                                <path strokeLinecap="round" strokeLinejoin="round"
+                                                                    d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z">
+                                                                </path>
+                                                                <path strokeLinecap="round" strokeLinejoin="round"
+                                                                    d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z">
+                                                                </path>
+                                                            </svg>
+                                                        </label>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <h2 className="text-center mt-1 font-semibold dark:text-gray-300">Upload Profile and Cover Image
+                                            </h2>
+                                            <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
+                                                <div className="w-full  mb-4 mt-6">
+                                                    <label htmlFor="" className="mb-2 dark:text-gray-300">Full Name</label>
+                                                    <input type="text"
+                                                        className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
+                                                        placeholder={session?.user?.name} />
+                                                </div>
+                                                <div className="w-full  mb-4 lg:mt-6">
+                                                    <label htmlFor="" className=" dark:text-gray-300">Email</label>
+                                                    <input type="text"
+                                                        className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
+                                                        placeholder={session?.user?.email} />
+                                                </div>
+                                            </div>
+
+                                            <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
+                                                <div className="w-full">
+                                                    <h3 className="dark:text-gray-300 mb-2">Sex</h3>
+                                                    <select
+                                                        className="w-full text-grey border-2 rounded-lg p-4 pl-2 pr-2 dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800">
+                                                        <option disabled value="">Select Sex</option>
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                    </select>
+                                                </div>
+                                                <div className="w-full">
+                                                    <h3 className="dark:text-gray-300 mb-2">Date Of Birth</h3>
+                                                    <input type="date"
+                                                        className="text-grey p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800" />
+                                                </div>
+                                            </div>
+                                            <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
+                                                <div className="w-full  mb-4 mt-4">
+                                                    <label htmlFor="" className="mb-2 dark:text-gray-300">Razorpay ID</label>
+                                                    <input type="text"
+                                                        className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
+                                                        placeholder="Razorpay Credentials" />
+                                                </div>
+                                            </div>
+                                            <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
+                                                <div className="w-full  mb-4">
+                                                    <label htmlFor="" className="mb-2 dark:text-gray-300">Full Address</label>
+                                                    <input type="text"
+                                                        className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
+                                                        placeholder="Full Address" />
+                                                </div>
+                                            </div>
+                                            <div className="w-full rounded-lg bg-blue-500 mt-4 text-white text-lg font-semibold">
+                                                <button type="submit" className="w-full p-4">Save</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="md:ml-2">
-                                <label class="block mb-2 text-sm font-bold text-gray-700 " for="lastName">
-                                    Last Name
-                                </label>
-                                <input
-                                    class="w-full px-3 py-2 text-sm leading-tight text-gray-700  border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                    id="lastName"
-                                    type="text"
-                                    placeholder="Last Name"
-                                />
-                            </div>
-                        </div>
-                        <div class="mb-4">
-                            <label class="block mb-2 text-sm font-bold text-gray-700 " for="email">
-                                Email
-                            </label>
-                            <input
-                                class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700  border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                id="email"
-                                type="email"
-                                placeholder="Email"
-                            />
-                        </div>
-                        <div class="mb-4 md:flex md:justify-between">
-                            <div class="mb-4 md:mr-2 md:mb-0">
-                                <label class="block mb-2 text-sm font-bold text-gray-700 " for="password">
-                                    Password
-                                </label>
-                                <input
-                                    class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700  border border-red-500 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                    id="password"
-                                    type="password"
-                                    placeholder="******************"
-                                />
-                                <p class="text-xs italic text-red-500">Please choose a password.</p>
-                            </div>
-                            <div class="md:ml-2">
-                                <label class="block mb-2 text-sm font-bold text-gray-700 " for="c_password">
-                                    Confirm Password
-                                </label>
-                                <input
-                                    class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700  border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                    id="c_password"
-                                    type="password"
-                                    placeholder="******************"
-                                />
-                            </div>
-                        </div>
-                        <div class="mb-6 text-center">
-                            <button
-                                class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
-                                type="button"
-                            >
-                                Register Account
-                            </button>
-                        </div>
-                        <hr class="mb-6 border-t" />
-                        <div class="text-center">
-                            <a class="inline-block text-sm text-blue-500  align-baseline hover:text-blue-800"
-                                href="#">
-                                Forgot Password?
-                            </a>
-                        </div>
-                        <div class="text-center">
-                            <a class="inline-block text-sm text-blue-500  align-baseline hover:text-blue-800"
-                                href="./index.html">
-                                Already have an account? Login!
-                            </a>
-                        </div>
-                    </form>
-                </div>
+                        </section>
 
-                {/* Signed in as {session.user.name} <br />
+
+
+                    </div>
+
+                    {/* Signed in as {session.user.name} <br />
                     Email : {session.user.email} <br />
                     Image :<img src={session.user.image} /> <br />
                     <button onClick={() => signOut()}>Sign out</button> */}
-            </>
-            {/* } */}
+                </>
+            }
         </div>
     )
 }
