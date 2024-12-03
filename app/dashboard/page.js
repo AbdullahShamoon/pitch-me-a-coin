@@ -99,14 +99,11 @@ const page = () => {
                                             </div>
 
                                             <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
-                                                <div className="w-full">
-                                                    <h3 className="dark:text-gray-300 mb-2">Sex</h3>
-                                                    <select
-                                                        className="w-full text-grey border-2 rounded-lg p-4 pl-2 pr-2 dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800">
-                                                        <option disabled value="">Select Sex</option>
-                                                        <option value="Male">Male</option>
-                                                        <option value="Female">Female</option>
-                                                    </select>
+                                                <div className="w-full ">
+                                                    <label htmlFor="" className="mb-2 dark:text-gray-300">Username</label>
+                                                    <input type="text"
+                                                        className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
+                                                        placeholder="Username" />
                                                 </div>
                                                 <div className="w-full">
                                                     <h3 className="dark:text-gray-300 mb-2">Date Of Birth</h3>
@@ -116,16 +113,16 @@ const page = () => {
                                             </div>
                                             <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
                                                 <div className="w-full  mb-4 mt-6">
-                                                    <label htmlFor="" className="mb-2 dark:text-gray-300">Moblie Number</label>
-                                                    <input type="tel"
-                                                        className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
-                                                        placeholder="Moblie Number" />
-                                                </div>
-                                                <div className="w-full  mb-4 lg:mt-6">
-                                                    <label htmlFor="" className=" dark:text-gray-300">Languages</label>
+                                                    <label htmlFor="" className="mb-2 dark:text-gray-300">Profile Pic</label>
                                                     <input type="text"
                                                         className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
-                                                        placeholder="Languages Known" />
+                                                        placeholder="Profile pic URL" />
+                                                </div>
+                                                <div className="w-full  mb-4 lg:mt-6">
+                                                    <label htmlFor="" className=" dark:text-gray-300">Cover Pic</label>
+                                                    <input type="text"
+                                                        className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
+                                                        placeholder="Cover pic URL" />
                                                 </div>
                                             </div>
                                             <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
@@ -133,25 +130,25 @@ const page = () => {
                                                     <label htmlFor="" className="mb-2 dark:text-gray-300">Razorpay ID</label>
                                                     <input type="text"
                                                         className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
-                                                        placeholder="Razorpay Credentials" />
+                                                        placeholder="Razorpay ID" />
                                                 </div>
                                             </div>
                                             <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
                                                 <div className="w-full  mb-4">
-                                                    <label htmlFor="" className="mb-2 dark:text-gray-300">Full Address</label>
+                                                    <label htmlFor="" className="mb-2 dark:text-gray-300">Razorpay Secret</label>
                                                     <input type="text"
                                                         className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
-                                                        placeholder="Full Address" />
+                                                        placeholder="Razorpay Secret" />
                                                 </div>
                                             </div>
                                             {/* <div className="w-full rounded-lg bg-blue-500 mt-4 text-white text-lg font-semibold">
                                                 <button type="submit" className="w-full p-4">Save</button>
                                             </div> */}
                                             <div className="button w-full my-5 flex justify-center">
-                                                <a href="#_" class="relative w-[90%] px-6 py-3 font-bold text-white group text-center">
-                                                    <span class="absolute inset-0 w-full h-full transition duration-300 ease-out transform -translate-x-2 -translate-y-2 bg-blue-700 group-hover:translate-x-0 group-hover:translate-y-0"></span>
-                                                    <span class="absolute inset-0 w-full h-full border-4 border-white   "></span>
-                                                    <span class="relative ">Save</span>
+                                                <a href="#_" className="relative w-[90%] px-6 py-3 font-bold text-white group text-center">
+                                                    <span className="absolute inset-0 w-full h-full transition duration-300 ease-out transform -translate-x-2 -translate-y-2 bg-blue-700 group-hover:translate-x-0 group-hover:translate-y-0"></span>
+                                                    <span className="absolute inset-0 w-full h-full border-4 border-white   "></span>
+                                                    <span className="relative ">Save</span>
                                                 </a>
                                             </div>
                                         </form>

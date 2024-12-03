@@ -5,9 +5,9 @@ import { useSession, signIn, signOut } from "next-auth/react"
 
 
 const Navbar = () => {
-    const { data: session } = useSession()
     const r = useRef();
     const s = useRef();
+    const { data: session } = useSession()
 
     return (
         <div>
@@ -129,11 +129,11 @@ const Navbar = () => {
                                 <div aria-label="navigation" className="py-2 text-black flex justify-end  ">
                                     <nav className="flex flex-col gap-1 w-[75%] border rounded-3xl bg-white drop-shadow-2xl p-3">
                                         <Link
-                                            href="/"
+                                            href={`/${session.user.name}`}
                                             className="flex items-center leading-6 space-x-3 justify-between w-full text-lg focus:outline-none hover:text-[#3198de] rounded-md transition-all duration-200 "
                                         >
                                       
-                                            <span>Account Settings</span>
+                                            <span>Your Page</span>
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 aria-hidden="true"

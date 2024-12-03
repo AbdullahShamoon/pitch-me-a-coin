@@ -20,7 +20,7 @@ const SignIN = () => {
             <div className="nav w-full px-[4.4rem] py-4 text-white bg-gradient-to-b from-black to-[#ecf0f1] ">
                 <Navbar />
             </div>
-            <div className="SignIn bg-[#ecf0f1] h-screen w-full flex ">
+            <div className="SignIn bg-[#ecf0f1] min-h-screen w-full flex ">
                 <div className="container h-fit bg-white mx-auto rounded-lg mt-5 px-5 w-fit shadow-xl">
                     <div className="head flex flex-col items-center">
                         <h1 className="text-xl font-semibold text-center mt-5 mb-2 font-merriweather">Welcome to PitchMeACoin!</h1>
