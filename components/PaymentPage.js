@@ -49,7 +49,7 @@ const PaymentPage = (params) => {
 
     return (
         <>
-            <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
+            <Script src="http://checkout.razorpay.com/v1/checkout.js"></Script>
 
 
             <section className="relative pt-36 pb-24">
@@ -170,7 +170,7 @@ const PaymentPage = (params) => {
                                     fill="white" />
                                 <defs>
                                     <linearGradient id="paint0_linear_1115_481" x1="10.0001" y1="1.25" x2="10.0001" y2="18.75"
-                                        gradientUnits="userSpaceOnUse">
+                                        gradientUnits="user-spaceOnUse">
                                         <stop stopColor="#37BBFE" />
                                         <stop offset="1" stopColor="#007DBB" />
                                     </linearGradient>
