@@ -29,7 +29,7 @@ const PaymentPage = (params) => {
             "description": "Test Transaction",
             "image": "https://example.com/your_logo",
             "order_id": orderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-            "callback_url": "https://localhost:3000/api/razorpay",
+            "callback_url": "http://localhost:3000/api/razorpay",
             "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
                 "name": "Gaurav Kumar", //your customer's name
                 "email": "gaurav.kumar@example.com",
@@ -229,6 +229,8 @@ const PaymentPage = (params) => {
                             </li>
                         </ul>
                     </div>
+
+                    {/* Activity log */}
                     <div className="flex-1 w-[90%] bg-white rounded-lg shadow-xl mt-4 p-8">
                         <h4 className="text-xl text-gray-900 font-bold">Activity log</h4>
                         <div className="relative px-4">
@@ -240,7 +242,7 @@ const PaymentPage = (params) => {
                                     <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
                                 </div>
                                 <div className="w-11/12">
-                                    <p className="text-sm">Profile informations changed.</p>
+                                    <p className="text-sm">₹50 donated by Shamoon</p>
                                     <p className="text-xs text-gray-500">3 min ago</p>
                                 </div>
                             </div>
@@ -253,7 +255,7 @@ const PaymentPage = (params) => {
                                 </div>
                                 <div className="w-11/12">
                                     <p className="text-sm">
-                                        Connected with <a href="#" className="text-blue-600 font-bold">Colby Covington</a>.</p>
+                                        Connected with <span href="#" className="text-blue-600 font-bold">Colby Covington</span>.</p>
                                     <p className="text-xs text-gray-500">15 min ago</p>
                                 </div>
                             </div>
@@ -311,6 +313,8 @@ const PaymentPage = (params) => {
                         </div>
                     </div>
                 </div>
+
+                {/* About  */}
                 <div className="flex flex-col w-full 2xl:w-2/3 items-center">
                     <div className="flex-1 bg-white rounded-lg shadow-xl p-8 w-[90%]">
                         <h4 className="text-xl text-gray-900 font-bold">About</h4>

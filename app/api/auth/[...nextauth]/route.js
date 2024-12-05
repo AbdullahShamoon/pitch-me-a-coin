@@ -1,8 +1,8 @@
 import NextAuth from "next-auth"
 import GithubProvider from "next-auth/providers/github"
-import mongoose from "mongoose";
 import User from "@/models/User";
 import Payment from "@/models/Payment";
+import connectDb from "@/db/connectDb";
 
 export const authOptions = NextAuth({
   // Configure one or more authentication providers
@@ -16,11 +16,11 @@ export const authOptions = NextAuth({
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
       if (account.provider === "github") {
-        // Connect to the database using mongoose
-        const client = await mongoose.connect("mongodb://localhost:27017/pitchmeacoin");
+        // Connect to the database
+        await connectDb();
 
         // Check if the user already exists in the database
-        const existingUser = await User.findOne({ email: user.email });
+        const existingUser = await User.findOne({ email: email });
         if (!existingUser) {
           // User doesn't exist, create a new user in the database
           const newUser = await User.create({
