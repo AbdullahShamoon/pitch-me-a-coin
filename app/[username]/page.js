@@ -1,6 +1,5 @@
 import React from 'react'
 import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
 import PaymentPage from '@/components/PaymentPage'
 
 const Username = ({ params }) => {
@@ -13,8 +12,6 @@ const Username = ({ params }) => {
             </div>
 
             <PaymentPage p={params} />
-
-            <Footer />
         </>
     )
 }

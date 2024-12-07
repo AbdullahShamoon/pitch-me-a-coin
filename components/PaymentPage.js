@@ -1,20 +1,34 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState , useEffect } from 'react'
 import Script from 'next/script'
-import { initiate } from '@/actions/useractions'
 import { useSession } from 'next-auth/react'
+import { fetchuser, fetchpayments , initiate } from '@/actions/useractions'
 
 const PaymentPage = (params) => {
     // const { data: session } = useSession()
 
     const [rangeval, setRangeval] = useState(500);
     const [paymentform, setPaymentform] = useState({ name: "", message: "" });
+    const [currentUser, setCurrentUser] = useState()
+    const [payments, setPayments] = useState()
+
+    useEffect(() => {
+      getData()
+    }, [])
+    
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setPaymentform((prev) => ({ ...prev, [name]: value }));
     };
+
+    const getData = async () => {
+        let u = await fetchuser(params.p.username)
+        setCurrentUser(u)
+        let p = await fetchpayments(params.p.username)
+        setPayments(p)
+    }
 
     const pay = async (amount) => {
         //get the order id
@@ -407,7 +421,7 @@ const PaymentPage = (params) => {
                     </div>
                     {/* Pay button */}
                     <div className="payButton mt-4">
-                        <a onClick={()=>pay(rangeval*100)} className="relative  inline-flex items-center justify-start py-3 pl-4 pr-12 overflow-hidden font-semibold text-indigo-700 transition-all duration-150 ease-in-out rounded hover:pl-10 hover:pr-6 bg-gray-50 group">
+                        <a onClick={() => pay(rangeval * 100)} className="relative  inline-flex items-center justify-start py-3 pl-4 pr-12 overflow-hidden font-semibold text-indigo-700 transition-all duration-150 ease-in-out rounded hover:pl-10 hover:pr-6 bg-gray-50 group">
                             <span className="absolute bottom-0 left-0 w-full h-1 transition-all duration-150 ease-in-out bg-indigo-700 group-hover:h-full"></span>
                             <span className="absolute right-0 pr-4 duration-200 ease-out group-hover:translate-x-12">
                                 <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
