@@ -3,7 +3,6 @@ import React, { useRef } from 'react'
 import Link from 'next/link'
 import { useSession, signIn, signOut } from "next-auth/react"
 
-
 const Navbar = () => {
     const r = useRef();
     const s = useRef();
