@@ -1,18 +1,31 @@
 'use client'
-import React from 'react'
+import React , { useEffect } from 'react'
 import Navbar from '@/components/Navbar'
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from 'next/navigation'
 
 
 const SignIN = () => {
-    const { data: session } = useSession()
-    if (session) {
-        // const router = useRouter()
-        // router.push('/dashboard')
-        useRouter().push('/dashboard')
+
+    // const { data: session } = useSession()
+    // if (session) {
+    //     const router = useRouter()
+    //     router.push('/dashboard')
+    //     // useRouter().push('/dashboard')
         
-    }
+    // }
+
+    //generate by Chatgpt
+    const { data: session } = useSession() // Hook 1
+    const router = useRouter() // Hook 2 (Move to top-level, outside of condition)
+
+    // Effect to handle redirection after session is available
+    useEffect(() => {
+        if (session) {
+            router.push('/dashboard')
+        }
+    }, [session, router]) // Add session and router as dependencies
+
 
     return (
         <div>

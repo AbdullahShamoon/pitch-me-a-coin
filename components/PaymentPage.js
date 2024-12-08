@@ -1,34 +1,59 @@
 'use client'
 
-import React, { useState , useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import Script from 'next/script'
 import { useSession } from 'next-auth/react'
-import { fetchuser, fetchpayments , initiate } from '@/actions/useractions'
+import { fetchuser, fetchpayments, initiate } from '@/actions/useractions'
+import Link from 'next/link'
 
 const PaymentPage = (params) => {
-    // const { data: session } = useSession()
-
+    const { data: session } = useSession()
     const [rangeval, setRangeval] = useState(500);
     const [paymentform, setPaymentform] = useState({ name: "", message: "" });
     const [currentUser, setCurrentUser] = useState()
     const [payments, setPayments] = useState()
-
-    useEffect(() => {
-      getData()
-    }, [])
-    
+    const [totalAmount, setTotalAmount] = useState(0) // New state for total amount
+    const [totalPayments, setTotalPayments] = useState(0)
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setPaymentform((prev) => ({ ...prev, [name]: value }));
     };
 
-    const getData = async () => {
-        let u = await fetchuser(params.p.username)
-        setCurrentUser(u)
-        let p = await fetchpayments(params.p.username)
-        setPayments(p)
-    }
+    // const getData = async () => {
+    //     let u = await fetchuser(params.p.username)
+    //     setCurrentUser(u)
+    //     let p = await fetchpayments(params.p.username)
+    //     setPayments(p)
+    //     console.log("Payments", p)
+    //     console.log("User", u)
+    // }
+
+    const getData = useCallback(async () => {
+        if (!params.p.username) return; // Prevent fetching when username is missing
+
+        try {
+            let u = await fetchuser(params.p.username)
+            setCurrentUser(u)
+
+            let p = await fetchpayments(params.p.username)
+            setPayments(p)
+
+            // Calculate total amount
+            const total = p.reduce((acc, payment) => acc + payment.amount, 0) 
+            setTotalAmount(total) // Update the total amount state
+
+            //Total number of payments
+            const totalPayment = p.length
+            setTotalPayments(totalPayment)
+        } catch (error) {
+            console.error("Error fetching data", error);
+        }
+    }, [params.p.username])
+
+    useEffect(() => {
+        getData()
+    }, [])
 
     const pay = async (amount) => {
         //get the order id
@@ -74,49 +99,48 @@ const PaymentPage = (params) => {
                     </div>
                     <div className="flex flex-col sm:flex-row max-sm:gap-5 items-center justify-between mb-5">
                         <ul className="flex items-center gap-5">
-                            <li> <a href="javascript:;" className="flex items-center gap-2 cursor-pointer group">
+                            <li> <Link href="#Info" className="flex items-center gap-2 cursor-pointer group">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M12.5 14.0902L7.5 14.0902M2.5 9.09545V14.0902C2.5 15.6976 2.5 16.5013 2.98816 17.0006C3.47631 17.5 4.26198 17.5 5.83333 17.5H14.1667C15.738 17.5 16.5237 17.5 17.0118 17.0006C17.5 16.5013 17.5 15.6976 17.5 14.0902V10.9203C17.5 9.1337 17.5 8.24039 17.1056 7.48651C16.7112 6.73262 15.9846 6.2371 14.5313 5.24606L11.849 3.41681C10.9528 2.8056 10.5046 2.5 10 2.5C9.49537 2.5 9.04725 2.80561 8.151 3.41681L3.98433 6.25832C3.25772 6.75384 2.89442 7.0016 2.69721 7.37854C2.5 7.75548 2.5 8.20214 2.5 9.09545Z"
                                         stroke="black" strokeWidth="1.6" strokeLinecap="round" />
                                 </svg>
-                                <span className="font-medium text-base leading-7 text-gray-900">Home</span>
-                            </a>
+                                <span className="font-medium text-base leading-7 text-gray-900">Info</span>
+                            </Link>
                             </li>
-                            <li> <a href="javascript:;" className="flex items-center gap-2 cursor-pointer group">
+                            <li> <Link href="#Activity" className="flex items-center gap-2 cursor-pointer group">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="5" height="20" viewBox="0 0 5 20"
                                     fill="none">
                                     <path d="M4.12567 1.13672L1 18.8633" stroke="#E5E7EB" strokeWidth="1.6"
                                         strokeLinecap="round" />
                                 </svg>
-                                <span className="font-medium text-base leading-7 text-gray-400">Account</span>
-                            </a>
+                                <span className="font-medium text-base leading-7 text-gray-400">Activity</span>
+                            </Link>
                             </li>
-                            <li><a href="javascript:;" className="flex items-center gap-2 cursor-pointer group">
+                            <li><Link href="#About" className="flex items-center gap-2 cursor-pointer group">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="5" height="20" viewBox="0 0 5 20"
                                     fill="none">
                                     <path d="M4.12567 1.13672L1 18.8633" stroke="#E5E7EB" strokeWidth="1.6"
                                         strokeLinecap="round" />
                                 </svg>
-                                <span className="font-medium text-base leading-7 text-gray-400">Profile</span>
+                                <span className="font-medium text-base leading-7 text-gray-400">About</span>
                                 <span
                                     className="rounded-full py-1.5 px-2.5 bg-indigo-50 flex items-center justify-center font-medium text-xs text-indigo-600">New</span>
-                            </a>
+                            </Link>
                             </li>
                         </ul>
                         <div className="flex items-center gap-4">
-                            <button
+                            <button onClick={()=>document.location="#Payment"}
                                 className="rounded-full border border-solid border-gray-300 bg-gray-50 py-3 px-4 text-sm font-semibold text-gray-900 shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-50 hover:bg-gray-100 hover:border-gray-300">Message</button>
-                            <button
-                                className="rounded-full border border-solid border-indigo-600 bg-indigo-600 py-3 px-4 text-sm font-semibold text-white whitespace-nowrap shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:bg-indigo-700 hover:border-indigo-700">Book
-                                a Session</button>
+                            <button onClick={()=>document.location="#Payment"}
+                                className="rounded-full border border-solid border-indigo-600 bg-indigo-600 py-3 px-4 text-sm font-semibold text-white whitespace-nowrap shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:bg-indigo-700 hover:border-indigo-700">₹ Pitch Me A Coin</button>
                         </div>
                     </div>
-                    <h3 className="text-center font-manrope font-bold text-3xl leading-10 text-gray-900 mb-3">{params.p.username}</h3>
+                    <h3 className="text-center font-manrope font-bold text-3xl leading-10 text-gray-900 mb-3">{session?.user?.name}</h3>
                     <p className="font-normal text-base leading-7 text-gray-500 text-center mb-8">A Full Stack Web Developer</p>
                     <div className="flex items-center justify-center gap-5">
-                        <a href="javascript:;"
+                        <Link href="#"
                             className="p-3 rounded-full border border-solid border-gray-300 group bg-gray-50 transition-all duration-500 hover:bg-indigo-700 hover:border-indigo-700">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clipPath="url(#clip0_1115_412)">
@@ -139,8 +163,8 @@ const PaymentPage = (params) => {
                                     </clipPath>
                                 </defs>
                             </svg>
-                        </a>
-                        <a href="javascript:;"
+                        </Link>
+                        <Link href="#"
                             className="p-3 rounded-full border border-solid border-gray-300 bg-gray-50 group transition-all duration-500 hover:bg-indigo-700 hover:border-indigo-700">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clipPath="url(#clip0_1115_52)">
@@ -157,16 +181,16 @@ const PaymentPage = (params) => {
                                     </clipPath>
                                 </defs>
                             </svg>
-                        </a>
-                        <a href="javascript:;"
+                        </Link>
+                        <Link href="#"
                             className="p-3 rounded-full border border-solid border-gray-300 bg-gray-50 group transition-all duration-500 hover:bg-indigo-700 hover:border-indigo-700">
                             <svg className="stroke-red-600 transition-all duration-500 group-hover:stroke-white" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M14.1667 5.83333V5.875M9.16673 17.5H10.8334C13.9761 17.5 15.5474 17.5 16.5237 16.5237C17.5001 15.5474 17.5001 13.976 17.5001 10.8333V9.16667C17.5001 6.02397 17.5001 4.45262 16.5237 3.47631C15.5474 2.5 13.9761 2.5 10.8334 2.5H9.16673C6.02403 2.5 4.45268 2.5 3.47637 3.47631C2.50006 4.45262 2.50006 6.02397 2.50006 9.16667V10.8333C2.50006 13.976 2.50006 15.5474 3.47637 16.5237C4.45268 17.5 6.02403 17.5 9.16673 17.5ZM13.3334 10C13.3334 11.8409 11.841 13.3333 10.0001 13.3333C8.15911 13.3333 6.66673 11.8409 6.66673 10C6.66673 8.15905 8.15911 6.66667 10.0001 6.66667C11.841 6.66667 13.3334 8.15905 13.3334 10Z"
                                     stroke="" strokeWidth="1.6" strokeLinecap="round" />
                             </svg>
-                        </a>
-                        <a href="javascript:;"
+                        </Link>
+                        <Link href="#"
                             className="p-3 rounded-full border border-solid border-gray-300 group bg-gray-50 transition-all duration-500 hover:bg-indigo-700 hover:border-indigo-700">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path className="fill-red-600 transition-all duration-500 group-hover:fill-white"
@@ -174,8 +198,8 @@ const PaymentPage = (params) => {
                                     fill="#FC0D1B" />
                                 <path className="fill-white transition-all duration-500 group-hover:fill-indigo-700" d="M8.12506 7.5V12.5L13.1251 10L8.12506 7.5Z" fill="white" />
                             </svg>
-                        </a>
-                        <a href="javascript:;"
+                        </Link>
+                        <Link href="#"
                             className="p-3 rounded-full border border-solid border-gray-300 group bg-gray-50 transition-all duration-500 hover:bg-indigo-700 hover:border-indigo-700">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <circle className="transition-all duration-500 group-hover:fill-white" cx="10.0001" cy="10" r="8.75" fill="url(#paint0_linear_1115_481)" />
@@ -184,26 +208,26 @@ const PaymentPage = (params) => {
                                     fill="white" />
                                 <defs>
                                     <linearGradient id="paint0_linear_1115_481" x1="10.0001" y1="1.25" x2="10.0001" y2="18.75"
-                                        gradientUnits="user-spaceOnUse">
+                                        gradientUnits="userSpaceOnUse">
                                         <stop stopColor="#37BBFE" />
                                         <stop offset="1" stopColor="#007DBB" />
                                     </linearGradient>
                                 </defs>
                             </svg>
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </section>
 
 
-            <div className="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4">
+            <div className="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4" id="Info">
                 <div className=" w-full flex flex-col 2xl:w-1/3 items-center">
                     <div className="flex-1 w-[90%]  bg-white rounded-lg shadow-xl p-8">
                         <h4 className="text-xl text-gray-900 font-bold">Personal Info</h4>
                         <ul className="mt-2 text-gray-700">
                             <li className="flex border-y py-2 ">
-                                <span className="font-bold w-24">Full name:</span>
-                                <span className="text-gray-700">Amanda S. Ross</span>
+                                <span className="font-bold w-24">Username:</span>
+                                <span className="text-gray-700">{currentUser?.username}</span>
                             </li>
                             <li className="flex border-b py-2">
                                 <span className="font-bold w-24">Birthday:</span>
@@ -231,108 +255,50 @@ const PaymentPage = (params) => {
                             </li>
                             <li className="flex items-center border-b py-2 space-x-2">
                                 <span className="font-bold w-24">Elsewhere:</span>
-                                <a href="#" title="Twitter">
+                                <Link href="#" title="Twitter">
                                     <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 333333 333333" shapeRendering="geometricPrecision" textRendering="geometricPrecision" imageRendering="optimizeQuality" fillRule="evenodd" clipRule="evenodd"><path d="M166667 0c92048 0 166667 74619 166667 166667s-74619 166667-166667 166667S0 258715 0 166667 74619 0 166667 0zm90493 110539c-6654 2976-13822 4953-21307 5835 7669-4593 13533-11870 16333-20535-7168 4239-15133 7348-23574 9011-6787-7211-16426-11694-27105-11694-20504 0-37104 16610-37104 37101 0 2893 320 5722 949 8450-30852-1564-58204-16333-76513-38806-3285 5666-5022 12109-5022 18661v4c0 12866 6532 24246 16500 30882-6083-180-11804-1876-16828-4626v464c0 17993 12789 33007 29783 36400-3113 845-6400 1313-9786 1313-2398 0-4709-247-7007-665 4746 14736 18448 25478 34673 25791-12722 9967-28700 15902-46120 15902-3006 0-5935-184-8860-534 16466 10565 35972 16684 56928 16684 68271 0 105636-56577 105636-105632 0-1630-36-3209-104-4806 7251-5187 13538-11733 18514-19185l17-17-3 2z" fill="#1da1f2"></path></svg>
-                                </a>
-                                <a href="#" title="LinkedIn">
+                                </Link>
+                                <Link href="#" title="LinkedIn">
                                     <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 333333 333333" shapeRendering="geometricPrecision" textRendering="geometricPrecision" imageRendering="optimizeQuality" fillRule="evenodd" clipRule="evenodd"><path d="M166667 0c92048 0 166667 74619 166667 166667s-74619 166667-166667 166667S0 258715 0 166667 74619 0 166667 0zm-18220 138885h28897v14814l418 1c4024-7220 13865-14814 28538-14814 30514-1 36157 18989 36157 43691v50320l-30136 1v-44607c0-10634-221-24322-15670-24322-15691 0-18096 11575-18096 23548v45382h-30109v-94013zm-20892-26114c0 8650-7020 15670-15670 15670s-15672-7020-15672-15670 7022-15670 15672-15670 15670 7020 15670 15670zm-31342 26114h31342v94013H96213v-94013z" fill="#0077b5"></path></svg>
-                                </a>
-                                <a href="#" title="Github">
+                                </Link>
+                                <Link href="#" title="Github">
                                     <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="0" height="0" shapeRendering="geometricPrecision" textRendering="geometricPrecision" imageRendering="optimizeQuality" fillRule="evenodd" clipRule="evenodd" viewBox="0 0 640 640"><path d="M319.988 7.973C143.293 7.973 0 151.242 0 327.96c0 141.392 91.678 261.298 218.826 303.63 16.004 2.964 21.886-6.957 21.886-15.414 0-7.63-.319-32.835-.449-59.552-89.032 19.359-107.8-37.772-107.8-37.772-14.552-36.993-35.529-46.831-35.529-46.831-29.032-19.879 2.209-19.442 2.209-19.442 32.126 2.245 49.04 32.954 49.04 32.954 28.56 48.922 74.883 34.76 93.131 26.598 2.882-20.681 11.15-34.807 20.315-42.803-71.08-8.067-145.797-35.516-145.797-158.14 0-34.926 12.52-63.485 32.965-85.88-3.33-8.078-14.291-40.606 3.083-84.674 0 0 26.87-8.61 88.029 32.8 25.512-7.075 52.878-10.642 80.056-10.76 27.2.118 54.614 3.673 80.162 10.76 61.076-41.386 87.922-32.8 87.922-32.8 17.398 44.08 6.485 76.631 3.154 84.675 20.516 22.394 32.93 50.953 32.93 85.879 0 122.907-74.883 149.93-146.117 157.856 11.481 9.921 21.733 29.398 21.733 59.233 0 42.792-.366 77.28-.366 87.804 0 8.516 5.764 18.473 21.992 15.354 127.076-42.354 218.637-162.274 218.637-303.582 0-176.695-143.269-319.988-320-319.988l-.023.107z"></path></svg>
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                     </div>
 
                     {/* Activity log */}
-                    <div className="flex-1 w-[90%] bg-white rounded-lg shadow-xl mt-4 p-8">
+                    <div className="flex-1 w-[90%] bg-white rounded-lg shadow-xl mt-4 p-8" id='Activity'>
                         <h4 className="text-xl text-gray-900 font-bold">Activity log</h4>
                         <div className="relative px-4">
                             <div className="absolute h-full border border-dashed border-opacity-20 border-secondary"></div>
 
                             {/* <!-- start::Timeline item --> */}
-                            <div className="flex items-center w-full my-6 -ml-1.5">
-                                <div className="w-1/12 z-10">
-                                    <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
+                            {payments && payments.map((p, i) => {
+                                
+               
+                                return <div key={i} className="flex items-center w-full my-6 -ml-1.5">
+                                    <div className="w-1/12 z-10">
+                                        <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
+                                    </div>
+                                    <div className="w-11/12">
+                                        <p className="text-sm"><span className='text-green-700 text-base font-bold'>₹{p.amount/100}</span> donated by <span href="#" className="text-blue-600 font-bold">{p.name}</span>. <span className='text-red-600'> Msg : </span><span className='text-red-600 text-base font-bold'>[</span> {p.message} <span className='text-red-600 text-base font-bold'>]</span> </p>
+                                        <p className="text-xs text-gray-500">On {new Date(p.createdAt).toLocaleString()}</p>
+                                    </div>
                                 </div>
-                                <div className="w-11/12">
-                                    <p className="text-sm">₹50 donated by Shamoon</p>
-                                    <p className="text-xs text-gray-500">3 min ago</p>
-                                </div>
-                            </div>
+                            })}
                             {/* <!-- end::Timeline item --> */}
 
-                            {/* <!-- start::Timeline item --> */}
-                            <div className="flex items-center w-full my-6 -ml-1.5">
-                                <div className="w-1/12 z-10">
-                                    <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
-                                </div>
-                                <div className="w-11/12">
-                                    <p className="text-sm">
-                                        Connected with <span href="#" className="text-blue-600 font-bold">Colby Covington</span>.</p>
-                                    <p className="text-xs text-gray-500">15 min ago</p>
-                                </div>
-                            </div>
-                            {/* <!-- end::Timeline item --> */}
-
-                            {/* <!-- start::Timeline item --> */}
-                            <div className="flex items-center w-full my-6 -ml-1.5">
-                                <div className="w-1/12 z-10">
-                                    <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
-                                </div>
-                                <div className="w-11/12">
-                                    <p className="text-sm">Invoice <a href="#" className="text-blue-600 font-bold">#4563</a> was created.</p>
-                                    <p className="text-xs text-gray-500">57 min ago</p>
-                                </div>
-                            </div>
-                            {/* <!-- end::Timeline item --> */}
-
-                            {/* <!-- start::Timeline item --> */}
-                            <div className="flex items-center w-full my-6 -ml-1.5">
-                                <div className="w-1/12 z-10">
-                                    <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
-                                </div>
-                                <div className="w-11/12">
-                                    <p className="text-sm">
-                                        Message received from <a href="#" className="text-blue-600 font-bold">Cecilia Hendric</a>.</p>
-                                    <p className="text-xs text-gray-500">1 hour ago</p>
-                                </div>
-                            </div>
-                            {/* <!-- end::Timeline item --> */}
-
-                            {/* <!-- start::Timeline item --> */}
-                            <div className="flex items-center w-full my-6 -ml-1.5">
-                                <div className="w-1/12 z-10">
-                                    <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
-                                </div>
-                                <div className="w-11/12">
-                                    <p className="text-sm">New order received <a href="#" className="text-blue-600 font-bold">#OR9653</a>.</p>
-                                    <p className="text-xs text-gray-500">2 hours ago</p>
-                                </div>
-                            </div>
-                            {/* <!-- end::Timeline item --> */}
-
-                            {/* <!-- start::Timeline item --> */}
-                            <div className="flex items-center w-full my-6 -ml-1.5">
-                                <div className="w-1/12 z-10">
-                                    <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
-                                </div>
-                                <div className="w-11/12">
-                                    <p className="text-sm">
-                                        Message received from <a href="#" className="text-blue-600 font-bold">Jane Stillman</a>.</p>
-                                    <p className="text-xs text-gray-500">2 hours ago</p>
-                                </div>
-                            </div>
-                            {/* <!-- end::Timeline item --> */}
                         </div>
                     </div>
                 </div>
 
                 {/* About  */}
-                <div className="flex flex-col w-full 2xl:w-2/3 items-center">
+                <div className="flex flex-col w-full 2xl:w-2/3 items-center" id='About'>
                     <div className="flex-1 bg-white rounded-lg shadow-xl p-8 w-[90%]">
                         <h4 className="text-xl text-gray-900 font-bold">About</h4>
-                        <p className="mt-2 text-gray-700">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt voluptates obcaecati numquam error et ut fugiat asperiores. Sunt nulla ad incidunt laboriosam, laudantium est unde natus cum numquam, neque facere. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, magni odio magnam commodi sunt ipsum eum! Voluptas eveniet aperiam at maxime, iste id dicta autem odio laudantium eligendi commodi distinctio!</p>
+                        <p className="mt-2 text-gray-700">I am a very simple card. I am good at containing small bits of information.</p>
                     </div>
                     <div className="flex-1 bg-white rounded-lg shadow-xl mt-4 p-8 w-[90%]">
                         <h4 className="text-xl text-gray-900 font-bold">Statistics</h4>
@@ -340,8 +306,8 @@ const PaymentPage = (params) => {
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-4">
                             <div className="px-6 py-6 bg-gray-100 border border-gray-300 rounded-lg shadow-xl">
                                 <div className="flex items-center justify-between">
-                                    <span className="font-bold text-sm text-indigo-600">Total Revenue</span>
-                                    <span className="text-xs bg-gray-200 hover:bg-gray-500 text-gray-500 hover:text-gray-200 px-2 py-1 rounded-lg transition duration-200 cursor-default">7 days</span>
+                                    <span className="font-bold text-sm text-indigo-600">Total Amount</span>
+                                    <span className="text-xs bg-gray-200 hover:bg-gray-500 text-gray-500 hover:text-gray-200 px-2 py-1 rounded-lg transition duration-200 cursor-default">1 year</span>
                                 </div>
                                 <div className="flex items-center justify-between mt-6">
                                     <div>
@@ -349,7 +315,7 @@ const PaymentPage = (params) => {
                                     </div>
                                     <div className="flex flex-col">
                                         <div className="flex items-end">
-                                            <span className="text-2xl 2xl:text-3xl font-bold">$8,141</span>
+                                            <span className="text-2xl 2xl:text-3xl font-bold">₹{totalAmount/100}</span>
                                             <div className="flex items-center ml-2 mb-1">
                                                 <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
                                                 <span className="font-bold text-sm text-gray-500 ml-0.5">3%</span>
@@ -360,8 +326,8 @@ const PaymentPage = (params) => {
                             </div>
                             <div className="px-6 py-6 bg-gray-100 border border-gray-300 rounded-lg shadow-xl">
                                 <div className="flex items-center justify-between">
-                                    <span className="font-bold text-sm text-green-600">New Orders</span>
-                                    <span className="text-xs bg-gray-200 hover:bg-gray-500 text-gray-500 hover:text-gray-200 px-2 py-1 rounded-lg transition duration-200 cursor-default">7 days</span>
+                                    <span className="font-bold text-sm text-green-600">Top Doner</span>
+                                    <span className="text-xs bg-gray-200 hover:bg-gray-500 text-gray-500 hover:text-gray-200 px-2 py-1 rounded-lg transition duration-200 cursor-default">1 year</span>
                                 </div>
                                 <div className="flex items-center justify-between mt-6">
                                     <div>
@@ -369,10 +335,9 @@ const PaymentPage = (params) => {
                                     </div>
                                     <div className="flex flex-col">
                                         <div className="flex items-end">
-                                            <span className="text-2xl 2xl:text-3xl font-bold">217</span>
+                                            <span className="text-2xl 2xl:text-3xl font-bold">{payments && payments[0] && payments[0].name}</span>
                                             <div className="flex items-center ml-2 mb-1">
-                                                <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                                                <span className="font-bold text-sm text-gray-500 ml-0.5">5%</span>
+                                                <span className="font-bold text-sm text-gray-500 ml-0.5">₹{payments && payments[0].amount/100}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -380,8 +345,8 @@ const PaymentPage = (params) => {
                             </div>
                             <div className="px-6 py-6 bg-gray-100 border border-gray-300 rounded-lg shadow-xl">
                                 <div className="flex items-center justify-between">
-                                    <span className="font-bold text-sm text-blue-600">New Connections</span>
-                                    <span className="text-xs bg-gray-200 hover:bg-gray-500 text-gray-500 hover:text-gray-200 px-2 py-1 rounded-lg transition duration-200 cursor-default">7 days</span>
+                                    <span className="font-bold text-sm text-blue-600">Total Doners</span>
+                                    <span className="text-xs bg-gray-200 hover:bg-gray-500 text-gray-500 hover:text-gray-200 px-2 py-1 rounded-lg transition duration-200 cursor-default">1 year</span>
                                 </div>
                                 <div className="flex items-center justify-between mt-6">
                                     <div>
@@ -389,7 +354,7 @@ const PaymentPage = (params) => {
                                     </div>
                                     <div className="flex flex-col">
                                         <div className="flex items-end">
-                                            <span className="text-2xl 2xl:text-3xl font-bold">54</span>
+                                            <span className="text-2xl 2xl:text-3xl font-bold">{totalPayments}</span>
                                             <div className="flex items-center ml-2 mb-1">
                                                 <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
                                                 <span className="font-bold text-sm text-gray-500 ml-0.5">7%</span>
@@ -405,7 +370,7 @@ const PaymentPage = (params) => {
                 </div>
             </div>
             {/* Payment Section */}
-            <div className="payment flex items-center justify-center w-full mb-20">
+            <div className="payment flex items-center justify-center w-full mb-20" id='Payment'>
                 <div className="bg-white rounded-lg shadow-2xl p-9 w-[90%] ">
                     <h2 className="text-2xl font-bold mb-4">Make a Payment</h2>
 
@@ -421,7 +386,7 @@ const PaymentPage = (params) => {
                     </div>
                     {/* Pay button */}
                     <div className="payButton mt-4">
-                        <a onClick={() => pay(rangeval * 100)} className="relative  inline-flex items-center justify-start py-3 pl-4 pr-12 overflow-hidden font-semibold text-indigo-700 transition-all duration-150 ease-in-out rounded hover:pl-10 hover:pr-6 bg-gray-50 group">
+                        <Link href="" onClick={() => pay(rangeval * 100)} className="relative  inline-flex items-center justify-start py-3 pl-4 pr-12 overflow-hidden font-semibold text-indigo-700 transition-all duration-150 ease-in-out rounded hover:pl-10 hover:pr-6 bg-gray-50 group">
                             <span className="absolute bottom-0 left-0 w-full h-1 transition-all duration-150 ease-in-out bg-indigo-700 group-hover:h-full"></span>
                             <span className="absolute right-0 pr-4 duration-200 ease-out group-hover:translate-x-12">
                                 <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
@@ -430,7 +395,7 @@ const PaymentPage = (params) => {
                                 <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </span>
                             <span className="relative w-full text-left transition-colors duration-200 ease-in-out group-hover:text-white">Pay ₹{rangeval}</span>
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
