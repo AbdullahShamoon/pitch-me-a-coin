@@ -61,7 +61,7 @@ const PaymentPage = (params) => {
         let orderId = a.id
 
         var options = {
-            "key": process.env.KEY_ID, // Enter the Key ID generated from the Dashboard
+            "key": currentUser.razorpay_id, // Enter the Key ID generated from the Dashboard
             "amount": amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
             "currency": "INR",
             "name": "Pitch Me A Coin", //your business name
@@ -92,10 +92,10 @@ const PaymentPage = (params) => {
 
 
             <section className="relative pt-36 pb-24">
-                <img src="https://pagedone.io/asset/uploads/1705471739.png" alt="cover-image" className="w-full absolute top-0 left-0 z-0 h-60 object-cover" />
+                <img src={currentUser?.coverpic} alt="cover-image" className="w-full absolute top-0 left-0 z-0 h-60 object-cover" />
                 <div className="w-full max-w-7xl mx-auto px-6 md:px-8">
                     <div className="flex items-center justify-center relative z-10 mb-2.5">
-                        <img src="https://pagedone.io/asset/uploads/1705471668.png" alt="user-avatar-image" className="border-4 border-solid border-white rounded-full object-cover" />
+                        <img src={currentUser?.profilepic} alt="user-avatar-image" className="border-4 border-solid border-white rounded-full object-cover w-40 h-40" />
                     </div>
                     <div className="flex flex-col sm:flex-row max-sm:gap-5 items-center justify-between mb-5">
                         <ul className="flex items-center gap-5">
@@ -137,8 +137,8 @@ const PaymentPage = (params) => {
                                 className="rounded-full border border-solid border-indigo-600 bg-indigo-600 py-3 px-4 text-sm font-semibold text-white whitespace-nowrap shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:bg-indigo-700 hover:border-indigo-700">₹ Pitch Me A Coin</button>
                         </div>
                     </div>
-                    <h3 className="text-center font-manrope font-bold text-3xl leading-10 text-gray-900 mb-3">{session?.user?.name}</h3>
-                    <p className="font-normal text-base leading-7 text-gray-500 text-center mb-8">A Full Stack Web Developer</p>
+                    <h3 className="text-center font-manrope font-bold text-3xl leading-10 text-gray-900 mb-3">{currentUser?.name}</h3>
+                    <p className="font-normal text-base leading-7 text-gray-500 text-center mb-8">{currentUser?.bio}</p>
                     <div className="flex items-center justify-center gap-5">
                         <Link href="#"
                             className="p-3 rounded-full border border-solid border-gray-300 group bg-gray-50 transition-all duration-500 hover:bg-indigo-700 hover:border-indigo-700">
@@ -231,27 +231,23 @@ const PaymentPage = (params) => {
                             </li>
                             <li className="flex border-b py-2">
                                 <span className="font-bold w-24">Birthday:</span>
-                                <span className="text-gray-700">24 Jul, 1991</span>
+                                <span className="text-gray-700">{new Date(currentUser?.dob).toLocaleDateString()}</span>
                             </li>
                             <li className="flex border-b py-2">
                                 <span className="font-bold w-24">Joined:</span>
-                                <span className="text-gray-700">10 Jan 2022 (25 days ago)</span>
+                                <span className="text-gray-700">{new Date(currentUser?.createdAt).toLocaleString()}</span>
                             </li>
                             <li className="flex border-b py-2">
                                 <span className="font-bold w-24">Mobile:</span>
-                                <span className="text-gray-700">(123) 123-1234</span>
+                                <span className="text-gray-700">{currentUser?.mobile}</span>
                             </li>
                             <li className="flex border-b py-2">
                                 <span className="font-bold w-24">Email:</span>
-                                <span className="text-gray-700">amandaross@example.com</span>
+                                <span className="text-gray-700">{currentUser?.email}</span>
                             </li>
                             <li className="flex border-b py-2">
                                 <span className="font-bold w-24">Location:</span>
-                                <span className="text-gray-700">New York, US</span>
-                            </li>
-                            <li className="flex border-b py-2">
-                                <span className="font-bold w-24">Languages:</span>
-                                <span className="text-gray-700">English, Spanish</span>
+                                <span className="text-gray-700">{currentUser?.address}</span>
                             </li>
                             <li className="flex items-center border-b py-2 space-x-2">
                                 <span className="font-bold w-24">Elsewhere:</span>
@@ -275,6 +271,7 @@ const PaymentPage = (params) => {
                             <div className="absolute h-full border border-dashed border-opacity-20 border-secondary"></div>
 
                             {/* <!-- start::Timeline item --> */}
+                            {payments && payments.length == 0 && <p className='text-red-600 text-xl font-bold'>No payments yet</p>}
                             {payments && payments.map((p, i) => {
                                 
                
@@ -298,7 +295,7 @@ const PaymentPage = (params) => {
                 <div className="flex flex-col w-full 2xl:w-2/3 items-center" id='About'>
                     <div className="flex-1 bg-white rounded-lg shadow-xl p-8 w-[90%]">
                         <h4 className="text-xl text-gray-900 font-bold">About</h4>
-                        <p className="mt-2 text-gray-700">I am a very simple card. I am good at containing small bits of information.</p>
+                        <p className="mt-2 text-gray-700">{currentUser?.about}</p>
                     </div>
                     <div className="flex-1 bg-white rounded-lg shadow-xl mt-4 p-8 w-[90%]">
                         <h4 className="text-xl text-gray-900 font-bold">Statistics</h4>
@@ -337,7 +334,7 @@ const PaymentPage = (params) => {
                                         <div className="flex items-end">
                                             <span className="text-2xl 2xl:text-3xl font-bold">{payments && payments[0] && payments[0].name}</span>
                                             <div className="flex items-center ml-2 mb-1">
-                                                <span className="font-bold text-sm text-gray-500 ml-0.5">₹{payments && payments[0].amount/100}</span>
+                                                <span className="font-bold text-sm text-gray-500 ml-0.5">₹{payments && payments[0] && payments[0].amount/100}</span>
                                             </div>
                                         </div>
                                     </div>
