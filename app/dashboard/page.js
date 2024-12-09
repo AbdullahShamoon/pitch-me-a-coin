@@ -4,6 +4,9 @@ import Navbar from '@/components/Navbar'
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from 'next/navigation'
 import { fetchuser, updateUser } from '@/actions/useractions'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Bounce } from 'react-toastify';
 
 
 const page = () => {
@@ -30,7 +33,7 @@ const page = () => {
     // }, [session])
 
     useEffect(() => {
-        
+
         if (!session) {
             router.push('/signin')
         }
@@ -46,13 +49,37 @@ const page = () => {
 
     const handleSubmit = async (e) => {
         let a = await updateUser(e, session.user.name)
-        alert("Profile Updated")
+        toast.success('👉 Profile Updated', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+            });
 
     }
 
 
     return (
-        <div>
+        <>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition="Bounce"
+            />
+
             {/* Navbar */}
             <div className="nav w-full px-[4.4rem] py-4 text-white bg-[#1d181f] ">
                 <Navbar />
@@ -87,13 +114,13 @@ const page = () => {
                                     <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
                                         <div className="w-full  mb-4 mt-6">
                                             <label htmlFor="name" className="mb-2 dark:text-gray-300">Full Name</label>
-                                            <input type="text" value={formData.name?formData.name: ""} onChange={handleChange} name='name'
+                                            <input type="text" value={formData.name ? formData.name : ""} onChange={handleChange} name='name'
                                                 className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
                                                 placeholder={session?.user?.name || "Enter your Full Name"} />
                                         </div>
                                         <div className="w-full  mb-4 lg:mt-6">
                                             <label htmlFor="email" className=" dark:text-gray-300">Email</label>
-                                            <input type="text" value={formData.email?formData.email: ""} onChange={handleChange} name='email'
+                                            <input type="text" value={formData.email ? formData.email : ""} onChange={handleChange} name='email'
                                                 className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
                                                 placeholder={session?.user?.email || "Enter your Email"} />
                                         </div>
@@ -102,26 +129,26 @@ const page = () => {
                                     <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
                                         <div className="w-full ">
                                             <label htmlFor="username" className="mb-2 dark:text-gray-300">Username</label>
-                                            <input type="text" value={formData.username?formData.username: ""} onChange={handleChange} name='username'
+                                            <input type="text" value={formData.username ? formData.username : ""} onChange={handleChange} name='username'
                                                 className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
                                                 placeholder={session?.user?.email.split("@")[0]} />
                                         </div>
                                         <div className="w-full">
                                             <label htmlFor="dob" className="dark:text-gray-300 mb-2">Date Of Birth</label>
-                                            <input type="date" value={formData.dob?formData.dob: ""} onChange={handleChange} name='dob'
+                                            <input type="date" value={formData.dob ? formData.dob : ""} onChange={handleChange} name='dob'
                                                 className="text-grey p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800" />
                                         </div>
                                     </div>
                                     <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
                                         <div className="w-full  mb-4 mt-6">
                                             <label htmlFor="profilepic" className="mb-2 dark:text-gray-300">Profile Pic</label>
-                                            <input type="text" value={formData.profilepic?formData.profilepic: ""} onChange={handleChange} name='profilepic'
+                                            <input type="text" value={formData.profilepic ? formData.profilepic : ""} onChange={handleChange} name='profilepic'
                                                 className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
                                                 placeholder="Enter Profile pic URL" />
                                         </div>
                                         <div className="w-full  mb-4 lg:mt-6">
                                             <label htmlFor="coverpic" className=" dark:text-gray-300">Cover Pic</label>
-                                            <input type="text" value={formData.coverpic?formData.coverpic: ""} onChange={handleChange} name='coverpic'
+                                            <input type="text" value={formData.coverpic ? formData.coverpic : ""} onChange={handleChange} name='coverpic'
                                                 className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
                                                 placeholder="Enter Cover pic URL" />
                                         </div>
@@ -129,13 +156,13 @@ const page = () => {
                                     <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
                                         <div className="w-full  mb-3 mt-3">
                                             <label htmlFor="mobile" className="mb-2 dark:text-gray-300">Mobile Number</label>
-                                            <input type='number' value={formData.mobile?formData.mobile: ""} onChange={handleChange} name='mobile'
+                                            <input type='number' value={formData.mobile ? formData.mobile : ""} onChange={handleChange} name='mobile'
                                                 className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
                                                 placeholder="Enter your Mobile no." />
                                         </div>
                                         <div className="w-full  mb-3 lg:mt-3">
                                             <label htmlFor="bio" className=" dark:text-gray-300">Bio</label>
-                                            <input type="text" value={formData.bio?formData.bio: ""} onChange={handleChange} name='bio'
+                                            <input type="text" value={formData.bio ? formData.bio : ""} onChange={handleChange} name='bio'
                                                 className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
                                                 placeholder="eg: A Full Stack web developer" />
                                         </div>
@@ -143,7 +170,7 @@ const page = () => {
                                     <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
                                         <div className="w-full  mb-2">
                                             <label htmlFor="address" className="mb-2 dark:text-gray-300">Address</label>
-                                            <input type="text" value={formData.address?formData.address: ""} onChange={handleChange} name='address' 
+                                            <input type="text" value={formData.address ? formData.address : ""} onChange={handleChange} name='address'
                                                 className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
                                                 placeholder="Enter your address" />
                                         </div>
@@ -151,7 +178,7 @@ const page = () => {
                                     <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
                                         <div className="w-full  mb-4 mt-2">
                                             <label htmlFor="razorpay_id" className="mb-2 dark:text-gray-300">Razorpay ID</label>
-                                            <input type="text" value={formData.razorpay_id?formData.razorpay_id: ""} onChange={handleChange} name='razorpay_id'
+                                            <input type="text" value={formData.razorpay_id ? formData.razorpay_id : ""} onChange={handleChange} name='razorpay_id'
                                                 className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
                                                 placeholder="Razorpay ID" />
                                         </div>
@@ -159,7 +186,7 @@ const page = () => {
                                     <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
                                         <div className="w-full  mb-4">
                                             <label htmlFor="razorpay_secret" className="mb-2 dark:text-gray-300">Razorpay Secret</label>
-                                            <input type="text" value={formData.razorpay_secret?formData.razorpay_secret: ""} onChange={handleChange} name='razorpay_secret'
+                                            <input type="text" value={formData.razorpay_secret ? formData.razorpay_secret : ""} onChange={handleChange} name='razorpay_secret'
                                                 className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
                                                 placeholder="Razorpay Secret" />
                                         </div>
@@ -168,7 +195,7 @@ const page = () => {
                                     <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
                                         <div className="w-full  mb-4">
                                             <label htmlFor="about" className="mb-2 dark:text-gray-300">About</label>
-                                            <input type="text" value={formData.about?formData.about: ""} onChange={handleChange} name='about'
+                                            <input type="text" value={formData.about ? formData.about : ""} onChange={handleChange} name='about'
                                                 className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
                                                 placeholder="Write something about yourself" />
                                         </div>
@@ -198,7 +225,7 @@ const page = () => {
                     Image :<img src={session.user.image} /> <br />
                     <button onClick={() => signOut()}>Sign out</button> */}
 
-        </div>
+        </>
     )
 }
 

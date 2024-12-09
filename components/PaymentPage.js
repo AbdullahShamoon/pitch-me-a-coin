@@ -1,10 +1,15 @@
 'use client'
 
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, use } from 'react'
 import Script from 'next/script'
 import { useSession } from 'next-auth/react'
 import { fetchuser, fetchpayments, initiate } from '@/actions/useractions'
 import Link from 'next/link'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Bounce } from 'react-toastify';
+import { useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 const PaymentPage = (params) => {
     const { data: session } = useSession()
@@ -14,6 +19,8 @@ const PaymentPage = (params) => {
     const [payments, setPayments] = useState()
     const [totalAmount, setTotalAmount] = useState(0) // New state for total amount
     const [totalPayments, setTotalPayments] = useState(0)
+    const SearchParams = useSearchParams()
+    const router = useRouter()
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -40,7 +47,7 @@ const PaymentPage = (params) => {
             setPayments(p)
 
             // Calculate total amount
-            const total = p.reduce((acc, payment) => acc + payment.amount, 0) 
+            const total = p.reduce((acc, payment) => acc + payment.amount, 0)
             setTotalAmount(total) // Update the total amount state
 
             //Total number of payments
@@ -53,6 +60,23 @@ const PaymentPage = (params) => {
 
     useEffect(() => {
         getData()
+    }, [])
+
+    useEffect(() => {
+        if (SearchParams.get("paymentdone") === "true") {
+            toast.success('Payment Successful !!Thanks for your support ', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+        }
+        router.push(`/${params.p.username}`)
     }, [])
 
     const pay = async (amount) => {
@@ -88,6 +112,20 @@ const PaymentPage = (params) => {
 
     return (
         <>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition="Bounce"
+            />
+
             <Script src="http://checkout.razorpay.com/v1/checkout.js"></Script>
 
 
@@ -131,9 +169,9 @@ const PaymentPage = (params) => {
                             </li>
                         </ul>
                         <div className="flex items-center gap-4">
-                            <button onClick={()=>document.location="#Payment"}
+                            <button onClick={() => document.location = "#Payment"}
                                 className="rounded-full border border-solid border-gray-300 bg-gray-50 py-3 px-4 text-sm font-semibold text-gray-900 shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-50 hover:bg-gray-100 hover:border-gray-300">Message</button>
-                            <button onClick={()=>document.location="#Payment"}
+                            <button onClick={() => document.location = "#Payment"}
                                 className="rounded-full border border-solid border-indigo-600 bg-indigo-600 py-3 px-4 text-sm font-semibold text-white whitespace-nowrap shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:bg-indigo-700 hover:border-indigo-700">₹ Pitch Me A Coin</button>
                         </div>
                     </div>
@@ -273,14 +311,14 @@ const PaymentPage = (params) => {
                             {/* <!-- start::Timeline item --> */}
                             {payments && payments.length == 0 && <p className='text-red-600 text-xl font-bold'>No payments yet</p>}
                             {payments && payments.map((p, i) => {
-                                
-               
+
+
                                 return <div key={i} className="flex items-center w-full my-6 -ml-1.5">
                                     <div className="w-1/12 z-10">
                                         <div className="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
                                     </div>
                                     <div className="w-11/12">
-                                        <p className="text-sm"><span className='text-green-700 text-base font-bold'>₹{p.amount/100}</span> donated by <span href="#" className="text-blue-600 font-bold">{p.name}</span>. <span className='text-red-600'> Msg : </span><span className='text-red-600 text-base font-bold'>[</span> {p.message} <span className='text-red-600 text-base font-bold'>]</span> </p>
+                                        <p className="text-sm"><span className='text-green-700 text-base font-bold'>₹{p.amount / 100}</span> donated by <span href="#" className="text-blue-600 font-bold">{p.name}</span>. <span className='text-red-600'> Msg : </span><span className='text-red-600 text-base font-bold'>[</span> {p.message} <span className='text-red-600 text-base font-bold'>]</span> </p>
                                         <p className="text-xs text-gray-500">On {new Date(p.createdAt).toLocaleString()}</p>
                                     </div>
                                 </div>
@@ -312,7 +350,7 @@ const PaymentPage = (params) => {
                                     </div>
                                     <div className="flex flex-col">
                                         <div className="flex items-end">
-                                            <span className="text-2xl 2xl:text-3xl font-bold">₹{totalAmount/100}</span>
+                                            <span className="text-2xl 2xl:text-3xl font-bold">₹{totalAmount / 100}</span>
                                             <div className="flex items-center ml-2 mb-1">
                                                 <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
                                                 <span className="font-bold text-sm text-gray-500 ml-0.5">3%</span>
@@ -334,7 +372,7 @@ const PaymentPage = (params) => {
                                         <div className="flex items-end">
                                             <span className="text-2xl 2xl:text-3xl font-bold">{payments && payments[0] && payments[0].name}</span>
                                             <div className="flex items-center ml-2 mb-1">
-                                                <span className="font-bold text-sm text-gray-500 ml-0.5">₹{payments && payments[0] && payments[0].amount/100}</span>
+                                                <span className="font-bold text-sm text-gray-500 ml-0.5">₹{payments && payments[0] && payments[0].amount / 100}</span>
                                             </div>
                                         </div>
                                     </div>
