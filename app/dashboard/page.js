@@ -90,13 +90,13 @@ const page = () => {
                                     <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
                                         <div className="w-full  mb-4 mt-6">
                                             <label htmlFor="" className="mb-2 dark:text-gray-300">Profile Pic</label>
-                                            <input type="text" onChange={handleChange} name='profile_pic'
+                                            <input type="text" onChange={handleChange} name='profilepic'
                                                 className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
                                                 placeholder="Enter Profile pic URL" />
                                         </div>
                                         <div className="w-full  mb-4 lg:mt-6">
                                             <label htmlFor="" className=" dark:text-gray-300">Cover Pic</label>
-                                            <input type="text" onChange={handleChange} name='cover_pic'
+                                            <input type="text" onChange={handleChange} name='coverpic'
                                                 className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
                                                 placeholder="Enter Cover pic URL" />
                                         </div>
@@ -104,19 +104,27 @@ const page = () => {
                                     <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
                                         <div className="w-full  mb-3 mt-3">
                                             <label htmlFor="" className="mb-2 dark:text-gray-300">Mobile Number</label>
-                                            <input type="text" onChange={handleChange} name='mobile_number'
+                                            <input type='number' onChange={handleChange} name='mobile'
                                                 className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
                                                 placeholder="Enter your Mobile no." />
                                         </div>
                                         <div className="w-full  mb-3 lg:mt-3">
-                                            <label htmlFor="" className=" dark:text-gray-300">Address</label>
-                                            <input type="text" onChange={handleChange} name='address'
+                                            <label htmlFor="" className=" dark:text-gray-300">Bio</label>
+                                            <input type="text" onChange={handleChange} name='bio'
                                                 className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
-                                                placeholder="Enter your Address" />
+                                                placeholder="eg: A Full Stack web developer" />
                                         </div>
                                     </div>
                                     <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
-                                        <div className="w-full  mb-4 mt-4">
+                                        <div className="w-full  mb-2">
+                                            <label htmlFor="" className="mb-2 dark:text-gray-300">Address</label>
+                                            <input type="text" onChange={handleChange} name='address'
+                                                className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
+                                                placeholder="Enter your address" />
+                                        </div>
+                                    </div>
+                                    <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
+                                        <div className="w-full  mb-4 mt-2">
                                             <label htmlFor="" className="mb-2 dark:text-gray-300">Razorpay ID</label>
                                             <input type="text" onChange={handleChange} name='razorpay_id'
                                                 className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
@@ -129,6 +137,15 @@ const page = () => {
                                             <input type="text" onChange={handleChange} name='razorpay_secret'
                                                 className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
                                                 placeholder="Razorpay Secret" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
+                                        <div className="w-full  mb-4">
+                                            <label htmlFor="" className="mb-2 dark:text-gray-300">About</label>
+                                            <input type="text" onChange={handleChange} name='about'
+                                                className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
+                                                placeholder="Write something about yourself" />
                                         </div>
                                     </div>
                                     {/* <div className="w-full rounded-lg bg-blue-500 mt-4 text-white text-lg font-semibold">

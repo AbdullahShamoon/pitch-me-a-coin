@@ -8,6 +8,12 @@ const UserSchema = new Schema({
     dob: { type: Date },
     profilepic: { type: String },
     coverpic: { type: String },
+    mobile: { type: Number },
+    address: { type: String },
+    bio: { type: String },
+    about: { type: String },
+    razorpay_id: { type: String },
+    razorpay_secret: { type: String },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
 })

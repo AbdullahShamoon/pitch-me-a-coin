@@ -12,3 +12,13 @@
 html{
     scroll-behavior: smooth;
 }
+
+input[type='number'] {
+    -moz-appearance: textfield;/*For FireFox*/
+    appearance: textfield;
+  
+    &::-webkit-inner-spin-button { /*For Webkits like Chrome and Safari*/
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
