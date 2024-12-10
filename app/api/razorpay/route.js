@@ -3,6 +3,7 @@ import { validatePaymentVerification } from "razorpay/dist/utils/razorpay-utils"
 import Payment from "@/models/Payment";
 import Razorpay from "razorpay";
 import connectDb from "@/db/connectDb";
+import User from "@/models/User";
 
 export const POST = async (req) => {
     //Connect to the database
@@ -15,8 +16,12 @@ export const POST = async (req) => {
     let p = await Payment.findOne({ oid: body.razorpay_order_id });
     if (!p) return NextResponse.json({ success: false, message: "Order Id not found in the database" })
 
+    //fetch the secret key of the user who is getting the payment
+    let user = await User.findOne({ username: p.to_user });
+    const secret = user.razorpay_secret
+
     //verify the payment
-    let v = validatePaymentVerification({ "order_id": body.razorpay_order_id, "payment_id": body.razorpay_payment_id }, body.razorpay_signature, process.env.KEY_SECRET)
+    let v = validatePaymentVerification({ "order_id": body.razorpay_order_id, "payment_id": body.razorpay_payment_id }, body.razorpay_signature, secret)
 
     if (v) {
         //update the payment status in the database

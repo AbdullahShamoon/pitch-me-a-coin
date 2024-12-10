@@ -33,7 +33,7 @@ const page = () => {
     // }, [session])
 
     useEffect(() => {
-
+        document.title = "Dashboard - PitchMeACoin"
         if (!session) {
             router.push('/signin')
         }

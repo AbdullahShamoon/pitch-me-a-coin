@@ -21,6 +21,7 @@ const SignIN = () => {
 
     // Effect to handle redirection after session is available
     useEffect(() => {
+        document.title = "Sign In - PitchMeACoin"
         if (session) {
             router.push('/dashboard')
         }

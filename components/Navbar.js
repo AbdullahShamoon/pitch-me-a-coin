@@ -128,7 +128,7 @@ const Navbar = () => {
                                 <div aria-label="navigation" className="py-2 text-black flex justify-end  ">
                                     <nav className="flex flex-col gap-1 w-[75%] border rounded-3xl bg-white drop-shadow-2xl p-3">
                                         <Link
-                                            href={`/${session.user.email.split("@")[0]}`}
+                                            href={`/${session.user.name}`}
                                             className="flex items-center leading-6 space-x-3 justify-between w-full text-lg focus:outline-none hover:text-[#3198de] rounded-md transition-all duration-200 "
                                         >
                                       
