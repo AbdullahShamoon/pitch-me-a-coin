@@ -1,8 +1,17 @@
 import React from 'react'
 import Navbar from '@/components/Navbar'
 import PaymentPage from '@/components/PaymentPage'
+import { notFound } from "next/navigation"
+import User from '@/models/User'
+import connectDb from '@/db/connectDb'
 
-const Username = ({ params }) => {
+const Username = async ({ params }) => {
+
+
+    await connectDb()
+    const user = await User.findOne({ username: params.username })
+    if (!user) return notFound()
+
 
     return (
         <>
