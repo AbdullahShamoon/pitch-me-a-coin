@@ -98,3 +98,9 @@ const GuidelinesPage = () => {
 };
 
 export default GuidelinesPage;
+
+export async function generateMetadata({ params }) {
+  return {
+      title: "Guidelines - PitchMeACoin",
+  }
+}

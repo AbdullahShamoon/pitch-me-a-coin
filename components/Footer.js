@@ -12,15 +12,15 @@ const Footer = () => {
                     <div className='text-xs font-bold text-[#979797] py-1 hover:text-white transition-all duration-200'><Link href="/signin">Account Login</Link></div>
                 </div>
                 <div className='flex flex-col items-center'>
-                    <h1 className='font-kanit leading-9 tracking-widest w-52 text-center border-r border-gray-600 font-semibold'><Link href="">RESOURCES</Link></h1>
+                    <h1 className='font-kanit leading-9 tracking-widest w-52 text-center border-r border-gray-600 font-semibold'><Link href="/resources">RESOURCES</Link></h1>
                     <div className='text-xs font-bold text-[#979797] py-1 hover:text-white transition-all duration-200'><Link href="/faq">FAQ</Link></div>
                     <div className='text-xs font-bold text-[#979797] py-1 hover:text-white transition-all duration-200'><Link href="/guidelines">Guidelines</Link></div>
                     <div className='text-xs font-bold text-[#979797] py-1 hover:text-white transition-all duration-200'><Link href="/contact">Contact Us</Link></div>
                 </div>
                 <div className='flex flex-col items-center'>
-                    <h1 className='font-kanit leading-9 tracking-widest w-52 text-center border-r border-gray-600 font-semibold'><Link href="">LEGAL</Link></h1>
-                    <div className='text-xs font-bold text-[#979797] py-1 hover:text-white transition-all duration-200'><Link href="">Privacy Policy</Link></div>
-                    <div className='text-xs font-bold text-[#979797] py-1 hover:text-white transition-all duration-200'><Link href="">Terms of Services</Link></div>
+                    <h1 className='font-kanit leading-9 tracking-widest w-52 text-center border-r border-gray-600 font-semibold'><Link href="/privacy-policy">LEGAL</Link></h1>
+                    <div className='text-xs font-bold text-[#979797] py-1 hover:text-white transition-all duration-200'><Link href="/privacy-policy">Privacy Policy</Link></div>
+                    <div className='text-xs font-bold text-[#979797] py-1 hover:text-white transition-all duration-200'><Link href="/terms-of-services">Terms of Services</Link></div>
                 </div>
                 <div className='flex flex-col items-center'>
                     <h1 className='font-kanit leading-9 tracking-widest w-52 text-center font-semibold'><Link href="">FOLLOW</Link></h1>

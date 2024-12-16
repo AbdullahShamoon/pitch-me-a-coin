@@ -146,3 +146,9 @@ const ContactPage = () => {
 };
 
 export default ContactPage;
+
+export async function generateMetadata({ params }) {
+    return {
+        title: "Contact Us - PitchMeACoin",
+    }
+}

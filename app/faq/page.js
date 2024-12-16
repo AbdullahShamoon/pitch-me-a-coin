@@ -123,3 +123,9 @@ const FAQItem = ({ question, answer }) => {
 };
 
 export default FAQPage;
+
+export async function generateMetadata({ params }) {
+    return {
+        title: "FAQ - PitchMeACoin",
+    }
+}
