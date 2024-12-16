@@ -7,15 +7,15 @@ const Footer = () => {
             <footer className='flex bg-[#1d181f] text-white p-14 justify-center relative'>
                 <div className="logo absolute left-1/2. -top-7 font-anton text-xl bg-[#1d181f] py-2 px-8"><Link href="/">PitchMeACoin</Link></div>
                 <div className='flex flex-col items-center'>
-                    <h1 className='font-kanit leading-9 tracking-widest w-52 text-center border-r border-gray-600 font-semibold'><Link href="">GET STARTED</Link></h1>
-                    <div className='text-xs font-bold text-[#979797] py-1 hover:text-white transition-all duration-200'><Link href="">Start a Fundraise</Link></div>
-                    <div className='text-xs font-bold text-[#979797] py-1 hover:text-white transition-all duration-200'><Link href="">Account Login</Link></div>
+                    <h1 className='font-kanit leading-9 tracking-widest w-52 text-center border-r border-gray-600 font-semibold'><Link href="/signin">GET STARTED</Link></h1>
+                    <div className='text-xs font-bold text-[#979797] py-1 hover:text-white transition-all duration-200'><Link href="/signin">Start a Fundraise</Link></div>
+                    <div className='text-xs font-bold text-[#979797] py-1 hover:text-white transition-all duration-200'><Link href="/signin">Account Login</Link></div>
                 </div>
                 <div className='flex flex-col items-center'>
                     <h1 className='font-kanit leading-9 tracking-widest w-52 text-center border-r border-gray-600 font-semibold'><Link href="">RESOURCES</Link></h1>
-                    <div className='text-xs font-bold text-[#979797] py-1 hover:text-white transition-all duration-200'><Link href="">FAQ</Link></div>
-                    <div className='text-xs font-bold text-[#979797] py-1 hover:text-white transition-all duration-200'><Link href="">Guidelines</Link></div>
-                    <div className='text-xs font-bold text-[#979797] py-1 hover:text-white transition-all duration-200'><Link href="">Contact Us</Link></div>
+                    <div className='text-xs font-bold text-[#979797] py-1 hover:text-white transition-all duration-200'><Link href="/faq">FAQ</Link></div>
+                    <div className='text-xs font-bold text-[#979797] py-1 hover:text-white transition-all duration-200'><Link href="/guidelines">Guidelines</Link></div>
+                    <div className='text-xs font-bold text-[#979797] py-1 hover:text-white transition-all duration-200'><Link href="/contact">Contact Us</Link></div>
                 </div>
                 <div className='flex flex-col items-center'>
                     <h1 className='font-kanit leading-9 tracking-widest w-52 text-center border-r border-gray-600 font-semibold'><Link href="">LEGAL</Link></h1>
