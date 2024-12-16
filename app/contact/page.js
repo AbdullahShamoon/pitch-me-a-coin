@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+'use client';
+import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 
 const ContactPage = () => {
@@ -9,6 +10,10 @@ const ContactPage = () => {
         subject: '',
         message: ''
     });
+
+    useEffect(() => {
+        document.title = "Contact - PitchMeACoin"
+    }, [])
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -146,8 +151,3 @@ const ContactPage = () => {
 
 export default ContactPage;
 
-export async function generateMetadata({ params }) {
-    return {
-        title: "Contact Us - PitchMeACoin",
-    }
-}

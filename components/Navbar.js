@@ -13,11 +13,11 @@ const Navbar = () => {
             <div className="navContent w-full flex justify-between items-center">
 
                 <div className="flex gap-7 h-12 items-center w-72">
-                    <Link href="#_" className='font-kanit text-sm font-semibold cursor-default'>
+                    <Link href="/signin" className='font-kanit text-sm font-semibold cursor-default'>
                         <span className='hover:text-[#3198de] transition-all duration-300 cursor-pointer'>RAISE CAPITAL</span>
                     </Link>
-                    <Link href="#_" className='font-kanit text-sm font-semibold cursor-default'>
-                        <span className='hover:text-[#3198de] transition-all duration-300 cursor-pointer'>BROWSE PROJECTS</span>
+                    <Link href="/contact" className='font-kanit text-sm font-semibold cursor-default'>
+                        <span className='hover:text-[#3198de] transition-all duration-300 cursor-pointer'>CONTACT US</span>
                     </Link>
                 </div>
                 {/* Logo */}
