@@ -23,7 +23,7 @@ Logged In
 ![Home Page](/public/screenshots/Homepage.png)
 
 ### Dashboard
-![Dashboard](/public/screenshots/Dashboard.png)
+![Dashboard](/public/screenshots/Dashboard1.png)
 
 ### Payment Page
 ![Payment Page](/public//screenshots/Yourpage.png)
